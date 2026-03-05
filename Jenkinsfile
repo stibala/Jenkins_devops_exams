@@ -17,9 +17,9 @@ pipeline {
                     sh "docker build -t ${DOCKER_ID}/${DOCKER_IMAGE_MOVIE}:${DOCKER_TAG} ./movie-service"
                     sh "docker build -t ${DOCKER_ID}/${DOCKER_IMAGE_CAST}:${DOCKER_TAG} ./cast-service"
                     
-                    // Use docker-compose for integration testing as it handles DB dependencies
-                    sh "docker-compose down || true"
-                    sh "docker-compose up -d --build"
+                    // Use docker compose for integration testing as it handles DB dependencies
+                    sh "docker compose down || true"
+                    sh "docker compose up -d --build"
 
                     // Wait for services to be ready
                     echo "Waiting for services to start..."
