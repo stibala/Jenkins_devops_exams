@@ -34,7 +34,7 @@ pipeline {
                     // Test via nginx proxy or directly
                     // Expecting 200 OK from movies (returns empty list if db empty)
                     sh "curl -f http://localhost:8001/api/v1/movies/ || (docker compose logs movie_service && exit 1)"
-                    sh "curl -f -s -X POST -H "Content-Type: application/json" -d '{"name": "a", "nationality": "b"}' http://localhost:8002/api/v1/casts/ | grep -E '201' || (docker compose logs cast_service && exit 1)"
+                    sh "curl -f -s -X POST -H \"Content-Type: application/json\" -d '{\"name\": \"a\", \"nationality\": \"b\"}' http://localhost:8002/api/v1/casts/ | grep -E '201' || (docker compose logs cast_service && exit 1)"
                     // Test nginx proxying
                     sh "curl -f http://localhost:8080/api/v1/movies/ || (docker compose logs nginx && exit 1)"
                 }
