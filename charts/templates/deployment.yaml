@@ -39,12 +39,17 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /api/v1/checkapi
+              path: {{ .Values.probePath | default "/" }}
               port: http
           readinessProbe:
             httpGet:
-              path: /api/v1/checkapi
+              path: {{ .Values.probePath | default "/" }}
               port: http
+          env:
+            - name: DATABASE_URI
+              value: {{ .Values.databaseUri | quote }}
+            - name: CAST_SERVICE_HOST_URL
+              value: {{ .Values.castServiceHostUrl | quote }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
